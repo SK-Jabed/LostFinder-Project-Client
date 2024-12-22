@@ -2,10 +2,66 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddItem = () => {
   const { user } = useContext(AuthContext);
   const [startDate, setStartDate] = useState(new Date());
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const postType = form.postType.value;
+    const thumbnail = form.thumbnail.value;
+    const title = form.title.value;
+    const category = form.category.value;
+    const dateLost = startDate;
+    const location = form.location.value;
+    const name = form.name.value;
+    const email = form.email.value;
+    const description = form.description.value;
+
+    const formData = {
+      postType,
+      thumbnail,
+      title,
+      category,
+      dateLost,
+      location,
+      contactInfo: {
+        email,
+        name,
+        photo: user?.photoURL,
+      },
+      description,
+    };
+
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/addItems`, formData);
+      form.reset();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Item Has been added.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/myItems");
+    } 
+    catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error! Adding Operation Failed",
+      });
+    }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
@@ -14,7 +70,7 @@ const AddItem = () => {
           Add Lost or Found Item
         </h2>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2 ">
               <label className="text-gray-700 " htmlFor="postType">
@@ -94,8 +150,8 @@ const AddItem = () => {
               </label>
               <input
                 id="name"
-                type="text"
                 name="name"
+                type="text"
                 defaultValue={user?.displayName}
                 readOnly
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
