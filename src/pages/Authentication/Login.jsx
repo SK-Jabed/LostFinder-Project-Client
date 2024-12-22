@@ -6,11 +6,11 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Login = () => {
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
   console.log(from);
-  const { signIn, signInWithGoogle } = useContext(AuthContext);
 
   // Google Signin
   const handleGoogleSignIn = async () => {
@@ -26,7 +26,8 @@ const Login = () => {
       });
 
       navigate(from, { replace: true });
-    } catch (err) {
+    } 
+    catch (err) {
       console.log(err);
 
       Swal.fire({
@@ -34,7 +35,6 @@ const Login = () => {
         icon: "error",
         title: "Error! Login Failed",
       });
-      // toast.error(err?.message);
     }
   };
 
@@ -60,7 +60,8 @@ const Login = () => {
       });
 
       navigate(from, { replace: true });
-    } catch (err) {
+    } 
+    catch (err) {
       console.log(err);
 
       Swal.fire({
