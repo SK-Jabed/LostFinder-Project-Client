@@ -9,6 +9,7 @@ import AllItems from "../pages/Items/AllItems/AllItems";
 import AddItem from "../pages/Items/AddItem/AddItem";
 import MyItems from "../pages/Items/MyItems/MyItems";
 import RecoveredItems from "../pages/Items/RecoveredItems/RecoveredItems";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -26,15 +27,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/addItems",
-        element: <AddItem></AddItem>,
+        element: (
+          <PrivateRoute>
+            <AddItem></AddItem>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/myItems",
-        element: <MyItems></MyItems>,
+        element: (
+          <PrivateRoute>
+            <MyItems></MyItems>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/allRecovered",
-        element: <RecoveredItems></RecoveredItems>,
+        element: (
+          <PrivateRoute>
+            <RecoveredItems></RecoveredItems>
+          </PrivateRoute>
+        ),
       },
     ],
   },
