@@ -36,7 +36,7 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div title={user?.displayName} className="w-10 rounded-full">
+              <div title={user?.displayName} className="w-11 rounded-full">
                 <img
                   referrerPolicy="no-referrer"
                   alt="User Profile Photo"
