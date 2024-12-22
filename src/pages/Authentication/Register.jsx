@@ -6,10 +6,10 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Registration = () => {
-  const navigate = useNavigate();
-
   const { signInWithGoogle, createUser, updateUserProfile, setUser } =
     useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -37,8 +37,10 @@ const Registration = () => {
       });
 
       navigate("/");
-    } catch (err) {
+    } 
+    catch (err) {
       console.log(err);
+
       Swal.fire({
         position: "center",
         icon: "error",
@@ -61,7 +63,8 @@ const Registration = () => {
       });
 
       navigate("/");
-    } catch (err) {
+    } 
+    catch (err) {
       console.log(err);
       Swal.fire({
         position: "center",
