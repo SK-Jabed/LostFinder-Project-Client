@@ -3,6 +3,7 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
+import Swal from "sweetalert2";
 
 const MyItems = () => {
   const { user } = useContext(AuthContext);
@@ -22,39 +23,39 @@ const MyItems = () => {
   }, [user]);
 
   // Delete Functionality
-//   const handleDelete = async (id) => {
-//     try {
-//       const { data } = await axios.delete(
-//         `${import.meta.env.VITE_API_URL}/job/${id}`
-//       );
-//       console.log(data);
-//       Swal.fire({
-//         title: "Are you sure?",
-//         text: "You won't be able to revert this!",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#3085d6",
-//         cancelButtonColor: "#d33",
-//         confirmButtonText: "Yes, delete it!",
-//       }).then((result) => {
-//         if (result.isConfirmed) {
-//           Swal.fire({
-//             title: "Deleted!",
-//             text: "Your file has been deleted.",
-//             icon: "success",
-//           });
-//         }
-//       });
-//       fetchAllJobs();
-//     } catch (err) {
-//       console.log(err);
-//       Swal.fire({
-//         position: "center",
-//         icon: "error",
-//         title: "Error! Delete Operation Failed",
-//       });
-//     }
-//   };
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/item/${id}`
+      );
+    //   console.log(data);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your Item has been deleted.",
+            icon: "success",
+          });
+          fetchMyAddedItems();
+        };
+      });
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error! Delete Operation Failed",
+      });
+    }
+  };
 
   return (
     <section className="container px-4 mx-auto pt-12">
@@ -158,7 +159,7 @@ const MyItems = () => {
                       <td className="px-4 py-4 text-sm whitespace-nowrap">
                         <div className="flex items-center gap-x-6">
                           <button
-                            //   onClick={() => handleDelete(job._id)}
+                            onClick={() => handleDelete(item._id)}
                             className="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none"
                           >
                             <svg
@@ -178,8 +179,8 @@ const MyItems = () => {
                           </button>
 
                           <Link
-                            //   to={`/update/${job._id}`}
-                            className="text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none"
+                            to={`/updateItems/${item._id}`}
+                            className="text-gray-500 transition-colors duration-200 hover:text-yellow-500 focus:outline-none"
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
