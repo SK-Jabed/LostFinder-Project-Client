@@ -38,6 +38,7 @@ const AddItem = () => {
         name,
         photo: user?.photoURL,
       },
+      postedAt: new Date(),
       description,
     };
 
