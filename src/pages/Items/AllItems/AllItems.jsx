@@ -36,6 +36,7 @@ const AllItems = () => {
         />
       </div>
       <p>All Items: {filteredItems.length}</p>
+      
       {filteredItems.length === 0 && (
         <p className="text-gray-500">No items found for the search query.</p>
       )}
