@@ -1,11 +1,14 @@
-const {nextui} = require('@nextui-org/theme');
-/** @type {import('tailwindcss').Config} */
 import withMT from "@material-tailwind/html/utils/withMT";
-export default withMT ({
+const {nextui} = require('@nextui-org/theme');
+const flowbite = require("flowbite-react/tailwind");
+
+/** @type {import('tailwindcss').Config} */
+export default withMT({
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/components/modal.js"
+    "./node_modules/@nextui-org/theme/dist/components/modal.js",
+    flowbite.content(),
   ],
   theme: {
     extend: {
@@ -14,5 +17,5 @@ export default withMT ({
       },
     },
   },
-  plugins: [require("daisyui"),nextui()],
+  plugins: [require("daisyui"), nextui(), flowbite.plugin()],
 });
