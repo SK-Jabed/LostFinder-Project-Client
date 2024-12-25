@@ -91,7 +91,7 @@
 // export default PostDetails;
 
 
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Modal,
@@ -105,11 +105,11 @@ import {
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { AuthContext } from "../../providers/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 const PostDetails = () => {
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const [item, setItem] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [recoveredLocation, setRecoveredLocation] = useState("");

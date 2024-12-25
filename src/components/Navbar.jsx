@@ -1,17 +1,12 @@
-import { useContext} from "react";
+import React from "react";
 import logo from "../assets/logo/logo.png";
-import { AuthContext } from "../providers/AuthProvider";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle ";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-  // const [isDarkMode, setIsDarkMode] = useState(false);
+  const { user, logOut } = useAuth();
 
-  // const toggleTheme = () => {
-  //   setIsDarkMode(!isDarkMode);
-  //   document.documentElement.classList.toggle("dark");
-  // };
-  const { user, logOut } = useContext(AuthContext);
   return (
     <div className="navbar bg-white dark:bg-black shadow-sm w-full px-10">
       <div className="flex-1">

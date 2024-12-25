@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const AddItem = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const [startDate, setStartDate] = useState(new Date());
 
   const navigate = useNavigate();

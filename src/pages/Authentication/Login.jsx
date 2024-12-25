@@ -1,12 +1,12 @@
+import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import bgImg from "../../assets/login.jpg";
 import logo from "../../assets/logo/logo.png";
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const { signIn, signInWithGoogle } = useContext(AuthContext);
+  const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
@@ -26,8 +26,7 @@ const Login = () => {
       });
 
       navigate(from, { replace: true });
-    } 
-    catch (err) {
+    } catch (err) {
       console.log(err);
 
       Swal.fire({
@@ -60,8 +59,7 @@ const Login = () => {
       });
 
       navigate(from, { replace: true });
-    } 
-    catch (err) {
+    } catch (err) {
       console.log(err);
 
       Swal.fire({

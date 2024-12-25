@@ -1,20 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyItems = () => {
-  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
   const [items, setItems] = useState([]);
 
   const fetchMyAddedItems = async () => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/allItems/${user?.email}`,
-      { withCredentials: true }
-    );
+    const { data } = await axiosSecure.get(`/allItems/${user?.email}`);
     setItems(data);
   };
 

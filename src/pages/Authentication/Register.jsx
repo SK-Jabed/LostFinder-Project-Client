@@ -1,13 +1,13 @@
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bgImg from "../../assets/register.jpg";
 import logo from "../../assets/logo/logo.png";
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Registration = () => {
   const { signInWithGoogle, createUser, updateUserProfile, setUser } =
-    useContext(AuthContext);
+    useAuth();
 
   const navigate = useNavigate();
 
@@ -37,8 +37,7 @@ const Registration = () => {
       });
 
       navigate("/");
-    } 
-    catch (err) {
+    } catch (err) {
       console.log(err);
 
       Swal.fire({
@@ -63,8 +62,7 @@ const Registration = () => {
       });
 
       navigate("/");
-    } 
-    catch (err) {
+    } catch (err) {
       console.log(err);
       Swal.fire({
         position: "center",
