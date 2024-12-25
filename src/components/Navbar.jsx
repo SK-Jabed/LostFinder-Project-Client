@@ -1,12 +1,19 @@
-import { useContext } from "react";
+import { useContext} from "react";
 import logo from "../assets/logo/logo.png";
 import { AuthContext } from "../providers/AuthProvider";
 import { Link } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle ";
 
 const Navbar = () => {
+  // const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // const toggleTheme = () => {
+  //   setIsDarkMode(!isDarkMode);
+  //   document.documentElement.classList.toggle("dark");
+  // };
   const { user, logOut } = useContext(AuthContext);
   return (
-    <div className="navbar bg-base-100 shadow-sm container px-4 mx-auto">
+    <div className="navbar bg-white dark:bg-black shadow-sm w-full px-10">
       <div className="flex-1">
         <Link to="/" className="flex gap-2 items-center">
           <img className="w-auto h-7" src={logo} alt="" />
@@ -28,6 +35,8 @@ const Navbar = () => {
             </li>
           )}
         </ul>
+
+        <ThemeToggle></ThemeToggle>
 
         {user && (
           <div className="dropdown dropdown-end z-50">
