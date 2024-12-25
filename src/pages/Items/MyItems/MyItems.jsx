@@ -12,7 +12,8 @@ const MyItems = () => {
 
   const fetchMyAddedItems = async () => {
     const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/allItems/${user?.email}`
+      `${import.meta.env.VITE_API_URL}/allItems/${user?.email}`,
+      { withCredentials: true }
     );
     setItems(data);
   };
@@ -23,73 +24,70 @@ const MyItems = () => {
   }, [user]);
 
   // Delete Functionality
-//   const handleDelete = async (id) => {
-//     try {
-//       const { data } = await axios.delete(
-//         `${import.meta.env.VITE_API_URL}/item/${id}`
-//       );
-//     //   console.log(data);
-//       Swal.fire({
-//         title: "Are you sure?",
-//         text: "You won't be able to revert this!",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#3085d6",
-//         cancelButtonColor: "#d33",
-//         confirmButtonText: "Yes, delete it!",
-//       }).then((result) => {
-//         if (result.isConfirmed) {
-//           Swal.fire({
-//             title: "Deleted!",
-//             text: "Your Item has been deleted.",
-//             icon: "success",
-//           });
-//         //   fetchMyAddedItems();
-//         };
-//       });
-//     } 
-//     catch (err) {
-//       console.log(err);
-//       Swal.fire({
-//         position: "center",
-//         icon: "error",
-//         title: "Error! Delete Operation Failed",
-//       });
-//     }
-//   };
+  //   const handleDelete = async (id) => {
+  //     try {
+  //       const { data } = await axios.delete(
+  //         `${import.meta.env.VITE_API_URL}/item/${id}`
+  //       );
+  //     //   console.log(data);
+  //       Swal.fire({
+  //         title: "Are you sure?",
+  //         text: "You won't be able to revert this!",
+  //         icon: "warning",
+  //         showCancelButton: true,
+  //         confirmButtonColor: "#3085d6",
+  //         cancelButtonColor: "#d33",
+  //         confirmButtonText: "Yes, delete it!",
+  //       }).then((result) => {
+  //         if (result.isConfirmed) {
+  //           Swal.fire({
+  //             title: "Deleted!",
+  //             text: "Your Item has been deleted.",
+  //             icon: "success",
+  //           });
+  //         //   fetchMyAddedItems();
+  //         };
+  //       });
+  //     }
+  //     catch (err) {
+  //       console.log(err);
+  //       Swal.fire({
+  //         position: "center",
+  //         icon: "error",
+  //         title: "Error! Delete Operation Failed",
+  //       });
+  //     }
+  //   };
 
-
-   const handleDelete = (id) => {
-     Swal.fire({
-       title: "Are you sure?",
-       text: "You won't be able to revert this!",
-       icon: "warning",
-       showCancelButton: true,
-       confirmButtonColor: "#3085d6",
-       cancelButtonColor: "#d33",
-       confirmButtonText: "Yes, delete it!",
-     }).then((result) => {
-       if (result.isConfirmed) {
-         fetch(`${import.meta.env.VITE_API_URL}/item/${id}`, {
-           method: "DELETE",
-         })
-           .then((res) => res.json())
-           .then((data) => {
-             if (data.deletedCount > 0) {
-               Swal.fire({
-                 title: "Deleted!",
-                 text: "Your Item has been deleted.",
-                 icon: "success",
-               });
-               const remainingItems = items.filter(
-                 (item) => item._id !== id
-               );
-               setItems(remainingItems);
-             }
-           });
-       }
-     });
-   };
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_API_URL}/item/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your Item has been deleted.",
+                icon: "success",
+              });
+              const remainingItems = items.filter((item) => item._id !== id);
+              setItems(remainingItems);
+            }
+          });
+      }
+    });
+  };
 
   return (
     <section className="container px-4 mx-auto pt-12">
