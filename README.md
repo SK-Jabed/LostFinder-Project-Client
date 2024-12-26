@@ -13,7 +13,7 @@ The "LostFinder" web application facilitates reconnecting individuals with their
 ---
 
 ## 🌐 Live Site
-Check out the live demo here: [LostFinder Live Site](#)
+Check out the live demo here: [LostFinder Live Site](https://b10-assignment-11-753d2.web.app/)
 
 ---
 
@@ -72,12 +72,6 @@ Check out the live demo here: [LostFinder Live Site](#)
 - Multi-language support.
 - Chat functionality between users.
 - Gamification elements (badges for active contributors).
-
----
-
- ## 🌍 Deployment
-- **Client**: [Netlify Link](#)
-- **Server**: [Vercel Link](#)
 
 ---
 
