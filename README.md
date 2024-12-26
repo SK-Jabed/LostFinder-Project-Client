@@ -1,9 +1,13 @@
-# FundSphere: A Modern Crowdfunding Platform 🌟
+# LostFinder - User Interface 🌟
 
 ## 🎯 Project Overview
-**Welcome to FundSphere - A Modern Crowdfunding Platform !!!** This repository contains the client-side code for **FundSphere**, an intuitive crowdfunding platform designed for creators, entrepreneurs, and individuals looking to fund their projects. It is a modern crowdfunding platform where individuals and organizations can raise funds for various causes, ideas, or startups. Whether for personal or professional projects, it empowers individuals and organizations to bring ideas to life through a secure, user-friendly platform. The frontend is built with React and styled using Tailwind CSS for a modern and responsive user experience.
+**Welcome to FundSphere - A Modern Crowdfunding Platform !!!** LostFinder's client side is built with React and focuses on delivering a smooth and user-friendly interface. Users can post details of lost or found items, search for items, and interact with others through the platform.
 
 ---
+
+## Purpose
+The "LostFinder" web application facilitates reconnecting individuals with their lost belongings via a streamlined and efficient platform. "LostFinder" aims to simplify the process of reporting and finding lost belongings. It bridges the gap between finders and owners with an intuitive web interface. The client-side of the application focuses on delivering a seamless and accessible user experience.
+
 
 ## 🌐 Live Site
 Check out the live demo here: [Crowdcube Live Site](#)
@@ -63,10 +67,7 @@ Check out the live demo here: [Crowdcube Live Site](#)
 
 
 
-# LostFinder - User Interface
 
-## Purpose
-The "LostFinder" web application facilitates reconnecting individuals with their lost belongings via a streamlined and efficient platform.
 
 ## Project Overview
 LostFinder's frontend ensures a robust, intuitive interface with responsive components and elegant design to enhance user satisfaction.
