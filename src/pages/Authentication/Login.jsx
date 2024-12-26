@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import bgImg from "../../assets/login.jpg";
-import logo from "../../assets/logo/logo.png";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const { signIn, signInWithGoogle } = useAuth();
+const [error, setError] = useState();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
@@ -60,7 +60,7 @@ const Login = () => {
 
       navigate(from, { replace: true });
     } catch (err) {
-      console.log(err);
+      setError(err);
 
       Swal.fire({
         position: "center",
@@ -81,9 +81,9 @@ const Login = () => {
         ></div>
 
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
-          <div className="flex justify-center mx-auto">
+          {/* <div className="flex justify-center mx-auto">
             <img className="w-auto h-7 sm:h-8" src={logo} alt="" />
-          </div>
+          </div> */}
 
           <p className="mt-3 text-xl text-center text-gray-600 ">
             Welcome back!
@@ -163,6 +163,11 @@ const Login = () => {
                 type="password"
               />
             </div>
+            {error && (
+              <label className="label text-base font-semibold text-red-600">
+                {error}
+              </label>
+            )}
             <div className="mt-6">
               <button
                 type="submit"

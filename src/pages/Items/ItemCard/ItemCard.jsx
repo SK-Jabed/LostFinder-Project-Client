@@ -14,14 +14,13 @@ const ItemCard = ({ item }) => {
       dateLost,
       location,
       // postedAt,
-      description
+      description,
+      contactInfo,
     } = item || {};
 
     return (
       <div>
-        {title}
-
-        <div class="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
+        <div class="relative flex flex-col my-6 bg-white dark:bg-gray-900 shadow-sm border border-slate-200 rounded-lg w-96">
           <div class="relative h-56 m-2.5 text-white overflow-hidden rounded-md">
             <img className='object-cover' src={thumbnail} alt="card-image" />
           </div>
@@ -30,7 +29,7 @@ const ItemCard = ({ item }) => {
               {category}
             </div>
             <h3 className="text-xl font-bold mt-4">{title}</h3>
-            <p className="text-gray-700 mt-2">{description}</p>
+            <p className="text-gray-700 dark:text-gray-400 mt-2">{description}</p>
             <div className="mt-3">
               <p className="text-sm mt-2">
                 Lost Date: {format(new Date(dateLost), "P")}
@@ -44,17 +43,17 @@ const ItemCard = ({ item }) => {
           </div>
 
           <div class="flex items-center justify-between px-4">
-            <div class="flex items-center">
+            {/* <div class="flex items-center">
               <img
                 alt="Tania Andrew"
-                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
+                src={contactInfo.photo}
                 class="relative inline-block h-8 w-8 rounded-full"
               />
               <div class="flex flex-col ml-3 text-sm">
-                <span class="text-slate-800 font-semibold">Lewis Daniel</span>
-                <span class="text-slate-600">January 10, 2024</span>
+                <span class="text-slate-800 font-semibold">{contactInfo.name}</span>
+                <span class="text-slate-600">{contactInfo.email}</span>
               </div>
-            </div>
+            </div> */}
           </div>
           <button
             onClick={() => navigate(`/items/${_id}`)}

@@ -1,103 +1,15 @@
-// import axios from 'axios';
-// import React, { useEffect, useState } from 'react';
-// import ItemCard from '../Items/ItemCard/ItemCard';
-
-// const LatestItems = () => {
-//       const [items, setItems] = useState([]);
-
-//       const fetchAllItems = async () => {
-//         const { data } = await axios.get(
-//           `${import.meta.env.VITE_API_URL}/allItems`
-//         );
-//         setItems(data);
-//       };
-
-//       useEffect(() => {
-//         fetchAllItems();
-//       }, []);
-
-//       console.log(items);
-//     return (
-//       <div>
-//         Latest Items are here
-//         <div>
-//           {items.map((item) => (
-//             <ItemCard key={item._id} item={item}></ItemCard>
-//           ))}
-//         </div>
-//       </div>
-//     );
-// };
-
-// export default LatestItems;
-
-
-
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import ItemCard from "../Items/ItemCard/ItemCard";
-
-const LatestItems = () => {
-  const [items, setItems] = useState([]);
-
-  const fetchLatestItems = async () => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/latestItems`
-    );
-    setItems(data);
-  };
-
-  useEffect(() => {
-    fetchLatestItems();
-  }, []);
-
-  return (
-    <div>
-      <h2>Latest Items</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {items.map((item) => (
-          <ItemCard key={item._id} item={item} />
-        ))}
-      </div>
-      <div className="text-center mt-4">
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            // Navigate to the Lost & Found Items page
-            window.location.href = "/allItems";
-          }}
-        >
-          See All Items
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default LatestItems;
-
-
-
-
 // import axios from "axios";
 // import React, { useEffect, useState } from "react";
 // import ItemCard from "../Items/ItemCard/ItemCard";
-// import { useNavigate } from "react-router-dom";
 
 // const LatestItems = () => {
 //   const [items, setItems] = useState([]);
-//   const navigate = useNavigate();
 
-//   // Fetch latest 6 items
 //   const fetchLatestItems = async () => {
-//     try {
-//       const { data } = await axios.get(
-//         `${import.meta.env.VITE_API_URL}/latestItems`
-//       );
-//       setItems(data);
-//     } catch (error) {
-//       console.error("Error fetching latest items:", error);
-//     }
+//     const { data } = await axios.get(
+//       `${import.meta.env.VITE_API_URL}/latestItems`
+//     );
+//     setItems(data);
 //   };
 
 //   useEffect(() => {
@@ -105,18 +17,20 @@ export default LatestItems;
 //   }, []);
 
 //   return (
-//     <div className="container mx-auto my-10">
-//       <h2 className="text-2xl font-bold mb-6">Latest Find & Lost Items</h2>
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+//     <div className="w-11/12 container mx-auto">
+//       <h2 className="text-center">Latest Items</h2>
+//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 //         {items.map((item) => (
 //           <ItemCard key={item._id} item={item} />
 //         ))}
 //       </div>
-//       {/* See All Button */}
-//       <div className="mt-8 text-center">
+//       <div className="text-center mt-4">
 //         <button
-//           onClick={() => navigate("/allItems")}
-//           className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition"
+//           className="btn btn-primary"
+//           onClick={() => {
+//             // Navigate to the Lost & Found Items page
+//             window.location.href = "/allItems";
+//           }}
 //         >
 //           See All Items
 //         </button>
@@ -126,3 +40,85 @@ export default LatestItems;
 // };
 
 // export default LatestItems;
+
+
+
+
+
+
+
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import ItemCard from "../Items/ItemCard/ItemCard";
+import { useNavigate } from "react-router-dom";
+import "aos/dist/aos.css";
+import AOS from "aos";
+
+const LatestItems = () => {
+  const [items, setItems] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchLatestItems = async () => {
+      try {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/latestItems`
+        );
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching latest items:", error);
+      }
+    };
+
+    fetchLatestItems();
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
+  return (
+    <section className="container mx-auto my-10 px-4">
+      {/* Section Title and Description */}
+      <div className="text-center mb-8">
+        <h2
+          className="text-3xl font-extrabold text-gray-800 dark:text-white"
+          data-aos="fade-up"
+        >
+          Discover Latest Finds and Lost Items
+        </h2>
+        <p
+          className="text-gray-600 dark:text-gray-200 mt-2 max-w-xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Stay updated with the most recent lost or found items. Help reunite
+          owners with their belongings or find what you’ve misplaced!
+        </p>
+      </div>
+
+      {/* Cards Section */}
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        {items.map((item) => (
+          <ItemCard key={item._id} item={item} />
+        ))}
+      </div>
+
+      {/* See All Items Button */}
+      <div className="mt-8 text-center">
+        <button
+          onClick={() => navigate("/allItems")}
+          className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:from-indigo-600 hover:to-blue-500 transition-transform transform hover:scale-105"
+          data-aos="fade-up"
+          data-aos-delay="600"
+        >
+          See All Items
+        </button>
+      </div>
+    </section>
+  );
+};
+
+export default LatestItems;

@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bgImg from "../../assets/register.jpg";
-import logo from "../../assets/logo/logo.png";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 
@@ -10,6 +9,9 @@ const Registration = () => {
     useAuth();
 
   const navigate = useNavigate();
+
+  const [error, setError] = useState("");
+
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -20,6 +22,23 @@ const Registration = () => {
     const photo = form.photo.value;
     const pass = form.password.value;
     console.log({ email, pass, name, photo });
+
+    if (password.length < 6) {
+      setError("Password must contain at least 6 characters");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Passwords didn't match");
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      setError("Password must contain at least one lowercase letter");
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      setError("Password must contain at least one uppercase letter");
+      return;
+    }
 
     try {
       //2. User Registration
@@ -38,7 +57,7 @@ const Registration = () => {
 
       navigate("/");
     } catch (err) {
-      console.log(err);
+      setError(err);
 
       Swal.fire({
         position: "center",
@@ -76,9 +95,9 @@ const Registration = () => {
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl ">
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
-          <div className="flex justify-center mx-auto">
+          {/* <div className="flex justify-center mx-auto">
             <img className="w-auto h-7 sm:h-8" src={logo} alt="" />
-          </div>
+          </div> */}
 
           <p className="mt-3 text-xl text-center text-gray-600 ">
             Get Your Free Account Now.
@@ -188,6 +207,7 @@ const Registration = () => {
                 type="password"
               />
             </div>
+            {error && <p className="font-semibold text-red-500">{error}</p>}
             <div className="mt-6">
               <button
                 type="submit"
