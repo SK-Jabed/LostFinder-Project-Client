@@ -175,7 +175,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Modal,
   ModalContent,
@@ -189,10 +189,13 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAuth from "../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 const PostDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [item, setItem] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [recoveredLocation, setRecoveredLocation] = useState("");
@@ -213,15 +216,62 @@ const PostDetails = () => {
     fetchItemData();
   }, [id]);
 
-  const { postType, title, description, contactInfo } = item;
+  const { postType, title, description, contactInfo, category, location, dateLost } = item;
 
   // Submit handler for recovery data
+  // const handleRecoverySubmit = async () => {
+  //   const recoveryData = {
+  //     recoveredLocation,
+  //     recoveredDate,
+  //     recoveredBy: {
+  //       name: user?.displayName,
+  //       email: user?.email,
+  //       photo: user?.photoURL,
+  //     },
+  //   };
+
+  //   try {
+  //     // Save recovery data
+  //     await axios.post(
+  //       `${import.meta.env.VITE_API_URL}/recoverItem`,
+  //       recoveryData
+  //     );
+
+  //     // Update item status
+  //     await axios.put(`${import.meta.env.VITE_API_URL}/updateItem/${id}`, {
+  //       status: "recovered",
+  //     });
+
+  //     // alert("Item marked as recovered successfully!");
+  //     Swal.fire({
+  //             position: "center",
+  //             icon: "success",
+  //             title: "Item Has been added to recovered items list.",
+  //             showConfirmButton: false,
+  //             timer: 1500,
+  //           });
+  //     onClose();
+  //     navigate("/allRecovered");
+  //   } catch (error) {
+  //     console.error("Error recovering item:", error);
+  //   }
+  // };
+
   const handleRecoverySubmit = async () => {
+    if (item.status === "recovered") {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "This item is already marked as recovered!",
+      });
+      return;
+    }
+
     const recoveryData = {
       recoveredLocation,
       recoveredDate,
       recoveredBy: {
-        name: user?.name,
+        name: user?.displayName,
         email: user?.email,
         photo: user?.photoURL,
       },
@@ -239,20 +289,34 @@ const PostDetails = () => {
         status: "recovered",
       });
 
-      alert("Item marked as recovered successfully!");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Item has been added to recovered items list.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       onClose();
+      navigate("/allRecovered");
     } catch (error) {
       console.error("Error recovering item:", error);
     }
   };
 
+
   return (
     <div className="container px-8 my-8 mx-auto dark:bg-gray-900">
+      <Helmet>
+        <title>Post Details | LostFinder</title>
+      </Helmet>
       <div className="px-6 py-8 bg-white rounded-md shadow-md dark:bg-gray-800">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
           {title}
         </h1>
         <p className="mt-4 text-gray-600 dark:text-gray-300">{description}</p>
+        <p className="mt-4 text-gray-600 dark:text-gray-300">{category}</p>
+        <p className="mt-4 text-gray-600 dark:text-gray-300">{dateLost}</p>
+        <p className="mt-4 text-gray-600 dark:text-gray-300">{location}</p>
         <div className="mt-6">
           <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200">
             Contact Info:
@@ -266,9 +330,27 @@ const PostDetails = () => {
         </div>
 
         <div className="mt-8">
-          <Button
+          {/* <Button
             className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
             onPress={onOpen}
+          >
+            {postType === "Lost" ? "Found This!" : "This is Mine!"}
+          </Button> */}
+
+          <Button
+            className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+            onPress={() => {
+              if (item.status === "recovered") {
+                Swal.fire({
+                  icon: "warning",
+                  title: "This item is already marked as recovered!",
+                  text: "You cannot add it to the recovered items list again.",
+                  confirmButtonText: "OK",
+                });
+                return;
+              }
+              onOpen(); // Open the modal only if the status is not recovered
+            }}
           >
             {postType === "Lost" ? "Found This!" : "This is Mine!"}
           </Button>
@@ -297,7 +379,7 @@ const PostDetails = () => {
                     </label>
                     <input
                       type="text"
-                      defaultValue={user?.name}
+                      defaultValue={user?.displayName}
                       className="w-full p-2 border rounded dark:bg-gray-700 dark:text-gray-300"
                       readOnly
                     />

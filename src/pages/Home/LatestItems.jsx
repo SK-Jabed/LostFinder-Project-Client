@@ -76,17 +76,17 @@ const LatestItems = () => {
   }, []);
 
   return (
-    <section className="container mx-auto my-10 px-4">
+    <section className="container mx-auto mb-16 mt-20 px-4">
       {/* Section Title and Description */}
       <div className="text-center mb-8">
         <h2
-          className="text-3xl font-extrabold text-gray-800 dark:text-white"
+          className="text-4xl font-extrabold text-gray-800 dark:text-white"
           data-aos="fade-up"
         >
           Discover Latest Finds and Lost Items
         </h2>
         <p
-          className="text-gray-600 dark:text-gray-200 mt-2 max-w-xl mx-auto"
+          className="text-gray-600 text-base dark:text-gray-200 mt-2 max-w-xl mx-auto"
           data-aos="fade-up"
           data-aos-delay="200"
         >
@@ -96,6 +96,16 @@ const LatestItems = () => {
       </div>
 
       {/* Cards Section */}
+      {/* <div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        {items.map((item) => (
+          <ItemCard key={item._id} item={item} />
+        ))}
+      </div> */}
+
       <div
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         data-aos="fade-up"

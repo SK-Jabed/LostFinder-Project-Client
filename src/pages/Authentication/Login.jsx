@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import bgImg from "../../assets/login.jpg";
+import bgImg from "../../assets/3786353_78754.jpg";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { signIn, signInWithGoogle } = useAuth();
-const [error, setError] = useState();
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
@@ -60,7 +61,7 @@ const [error, setError] = useState();
 
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err);
+      console.log(err);
 
       Swal.fire({
         position: "center",
@@ -72,6 +73,9 @@ const [error, setError] = useState();
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
+      <Helmet>
+        <title>Login | LostFinder</title>
+      </Helmet>
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl ">
         <div
           className="hidden bg-cover bg-center lg:block lg:w-1/2"
@@ -85,13 +89,13 @@ const [error, setError] = useState();
             <img className="w-auto h-7 sm:h-8" src={logo} alt="" />
           </div> */}
 
-          <p className="mt-3 text-xl text-center text-gray-600 ">
-            Welcome back!
+          <p className="mt-3 mb-6 text-2xl font-bold text-center text-gray-600">
+            Login to <span className="text-cyan-700">Your Account</span>
           </p>
 
           <div
             onClick={handleGoogleSignIn}
-            className="flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 "
+            className="flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg hover:bg-teal-50"
           >
             <div className="px-4 py-2">
               <svg className="w-6 h-6" viewBox="0 0 40 40">
@@ -122,8 +126,8 @@ const [error, setError] = useState();
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b  lg:w-1/4"></span>
 
-            <div className="text-xs text-center text-gray-500 uppercase  hover:underline">
-              or login with email
+            <div className="text-xs font-semibold text-center text-gray-500 uppercase  hover:underline">
+              or <span className="text-teal-600">Login with email</span>
             </div>
 
             <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
@@ -163,11 +167,6 @@ const [error, setError] = useState();
                 type="password"
               />
             </div>
-            {error && (
-              <label className="label text-base font-semibold text-red-600">
-                {error}
-              </label>
-            )}
             <div className="mt-6">
               <button
                 type="submit"
@@ -183,9 +182,9 @@ const [error, setError] = useState();
 
             <Link
               to="/auth/register"
-              className="text-xs text-gray-500 uppercase  hover:underline"
+              className="text-xs font-semibold text-gray-500 uppercase  hover:underline"
             >
-              or sign up
+              or <span className="text-teal-600">Register</span>
             </Link>
 
             <span className="w-1/5 border-b  md:w-1/4"></span>

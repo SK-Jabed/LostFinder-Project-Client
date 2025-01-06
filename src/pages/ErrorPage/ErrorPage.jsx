@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const ErrorPage = () => {
     return (
       <div className="flex items-center justify-center h-screen bg-gradient-to-r from-purple-600 via-pink-500 to-red-500">
+        <Helmet>
+          <title>Error Page | LostFinder</title>
+        </Helmet>
         <div className="bg-white p-8 rounded-lg shadow-lg text-center max-w-md mx-auto">
           <h1 className="text-9xl font-extrabold text-purple-700 mb-4">404</h1>
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">

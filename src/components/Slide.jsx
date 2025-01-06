@@ -8,6 +8,7 @@ const Slide = ({ image, text }) => {
       style={{
         backgroundImage: `url(${image})`,
       }}
+      
     >
       <div className="flex items-center justify-center w-full h-full bg-gray-900/70">
         <div className="text-center">
@@ -17,9 +18,12 @@ const Slide = ({ image, text }) => {
           <br />
           <Link
             to="/addItems"
-            className="w-full px-5 py-4 mt-4 text-sm font-medium text-white capitalize transition-colors duration-300 transform bg-gray-600 rounded-md lg:w-auto hover:bg-gray-500 focus:outline-none focus:bg-gray-500"
+            className="relative w-full px-5 py-4 mt-4 text-sm font-medium text-white capitalize transition-transform transform bg-gradient-to-r from-indigo-500 via-blue-500 to-blue-600 rounded-md shadow-lg lg:w-auto hover:scale-105 focus:outline-none"
           >
-            Post Lost & Find Item
+            <span className="absolute inset-0 bg-white opacity-10 rounded-md animate-ping"></span>
+            <span className="relative text-base font-medium">
+              Post Lost & Find Item
+            </span>
           </Link>
         </div>
       </div>

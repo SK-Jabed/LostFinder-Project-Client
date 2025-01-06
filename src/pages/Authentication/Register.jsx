@@ -1,17 +1,43 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import bgImg from "../../assets/register.jpg";
+import bgImg from "../../assets/2425106_13323.jpg";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 
 const Registration = () => {
   const { signInWithGoogle, createUser, updateUserProfile, setUser } =
     useAuth();
-
   const navigate = useNavigate();
 
-  const [error, setError] = useState("");
-
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      if (password.length < 6) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Password must be at least 6 characters long.",
+          showConfirmButton: true,
+        });
+      } else if (!/[A-Z]/.test(password)) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Password must contain at least one uppercase letter.",
+          showConfirmButton: true,
+        });
+      } else if (!/[a-z]/.test(password)) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Password must contain at least one lowercase letter.",
+          showConfirmButton: true,
+        });
+      }
+      return false;
+    }
+    return true;
+  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -21,48 +47,34 @@ const Registration = () => {
     const name = form.name.value;
     const photo = form.photo.value;
     const pass = form.password.value;
-    console.log({ email, pass, name, photo });
 
-    if (password.length < 6) {
-      setError("Password must contain at least 6 characters");
-      return;
-    }
-    if (password !== confirmPassword) {
-      setError("Passwords didn't match");
-      return;
-    }
-    if (!/[a-z]/.test(password)) {
-      setError("Password must contain at least one lowercase letter");
-      return;
-    }
-    if (!/[A-Z]/.test(password)) {
-      setError("Password must contain at least one uppercase letter");
+    // Password validation
+    if (!validatePassword(pass)) {
       return;
     }
 
     try {
-      //2. User Registration
+      // User Registration
       const result = await createUser(email, pass);
-      console.log(result);
       await updateUserProfile(name, photo);
       setUser({ ...result.user, photoURL: photo, displayName: name });
 
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Register Successful!",
+        title: "Registration Successful!",
         showConfirmButton: false,
         timer: 1500,
       });
 
       navigate("/");
     } catch (err) {
-      setError(err);
+      console.error(err);
 
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Error! Registration Failed",
+        title: "Error! Registration Failed.",
       });
     }
   };
@@ -75,37 +87,33 @@ const Registration = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Register Successful!",
+        title: "Registration Successful!",
         showConfirmButton: false,
         timer: 1500,
       });
 
       navigate("/");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Error! Registration Failed",
+        title: "Error! Registration Failed.",
       });
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
-      <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl ">
+      <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-xl  lg:max-w-4xl ">
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
-          {/* <div className="flex justify-center mx-auto">
-            <img className="w-auto h-7 sm:h-8" src={logo} alt="" />
-          </div> */}
-
-          <p className="mt-3 text-xl text-center text-gray-600 ">
-            Get Your Free Account Now.
+          <p className="mt-3 mb-6 text-2xl font-bold text-center text-gray-600 ">
+            Create your <span className="text-cyan-700">Free Account</span>
           </p>
 
           <div
             onClick={handleGoogleSignIn}
-            className="flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 "
+            className="flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg hover:bg-teal-50"
           >
             <div className="px-4 py-2">
               <svg className="w-6 h-6" viewBox="0 0 40 40">
@@ -136,16 +144,16 @@ const Registration = () => {
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b  lg:w-1/4"></span>
 
-            <div className="text-xs text-center text-gray-500 uppercase  hover:underline">
-              or Registration with email
+            <div className="text-xs font-semibold text-center text-gray-500 uppercase hover:underline">
+              or <span className="text-teal-600">Registration with email</span>
             </div>
 
-            <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
+            <span className="w-1/5 border-b lg:w-1/4"></span>
           </div>
           <form onSubmit={handleSignUp}>
             <div className="mt-4">
               <label
-                className="block mb-2 text-sm font-medium text-gray-600 "
+                className="block mb-2 text-sm font-medium text-gray-600"
                 htmlFor="name"
               >
                 Username
@@ -154,13 +162,13 @@ const Registration = () => {
                 id="name"
                 autoComplete="name"
                 name="name"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                 type="text"
               />
             </div>
             <div className="mt-4">
               <label
-                className="block mb-2 text-sm font-medium text-gray-600 "
+                className="block mb-2 text-sm font-medium text-gray-600"
                 htmlFor="photo"
               >
                 Photo URL
@@ -169,13 +177,13 @@ const Registration = () => {
                 id="photo"
                 autoComplete="photo"
                 name="photo"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                 type="text"
               />
             </div>
             <div className="mt-4">
               <label
-                className="block mb-2 text-sm font-medium text-gray-600 "
+                className="block mb-2 text-sm font-medium text-gray-600"
                 htmlFor="LoggingEmailAddress"
               >
                 Email Address
@@ -184,30 +192,27 @@ const Registration = () => {
                 id="LoggingEmailAddress"
                 autoComplete="email"
                 name="email"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                 type="email"
               />
             </div>
 
             <div className="mt-4">
-              <div className="flex justify-between">
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-600 "
-                  htmlFor="loggingPassword"
-                >
-                  Password
-                </label>
-              </div>
-
+              <label
+                className="block mb-2 text-sm font-medium text-gray-600"
+                htmlFor="loggingPassword"
+              >
+                Password
+              </label>
               <input
                 id="loggingPassword"
                 autoComplete="current-password"
                 name="password"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                 type="password"
               />
             </div>
-            {error && <p className="font-semibold text-red-500">{error}</p>}
+
             <div className="mt-6">
               <button
                 type="submit"
@@ -219,16 +224,16 @@ const Registration = () => {
           </form>
 
           <div className="flex items-center justify-between mt-4">
-            <span className="w-1/5 border-b  md:w-1/4"></span>
+            <span className="w-1/5 border-b md:w-1/4"></span>
 
             <Link
               to="/auth/login"
-              className="text-xs text-gray-500 uppercase  hover:underline"
+              className="text-xs font-semibold text-gray-500 uppercase hover:underline"
             >
-              or sign in
+              or <span className="text-teal-600">Login</span>
             </Link>
 
-            <span className="w-1/5 border-b  md:w-1/4"></span>
+            <span className="w-1/5 border-b md:w-1/4"></span>
           </div>
         </div>
         <div

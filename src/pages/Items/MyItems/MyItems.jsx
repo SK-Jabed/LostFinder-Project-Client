@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const MyItems = () => {
   const axiosSecure = useAxiosSecure();
@@ -90,9 +91,14 @@ const MyItems = () => {
 
   return (
     <section className="container px-4 mx-auto pt-12">
+      <Helmet>
+        <title>My Items | LostFinder</title>
+      </Helmet>
       <div className="flex items-center gap-x-3">
-        <h2 className="text-lg font-medium text-gray-800">My Posted Items</h2>
-        <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">
+        <h2 className="text-2xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
+          My Posted Items
+        </h2>
+        <span className="px-3 py-2 text-xs text-blue-700 bg-blue-100 rounded-full">
           {items.length} Item{items.length !== 1 ? "s" : ""}
         </span>
       </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const RecoveredItems = () => {
     const axiosSecure = useAxiosSecure();
@@ -28,6 +29,9 @@ const RecoveredItems = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+        <title>Recovered Items | LostFinder</title>
+      </Helmet>
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">Your Recovered Items</h1>
         <button
@@ -49,7 +53,7 @@ const RecoveredItems = () => {
         <div className="overflow-x-auto">
           <table className="table-auto w-full border-collapse border border-gray-300">
             <thead>
-              <tr className="bg-gray-100">
+              <tr className="bg-gray-100 dark:bg-white dark:text-black">
                 <th className="border border-gray-300 px-4 py-2">Location</th>
                 <th className="border border-gray-300 px-4 py-2">Date</th>
                 <th className="border border-gray-300 px-4 py-2">

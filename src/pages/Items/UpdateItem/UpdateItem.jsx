@@ -5,12 +5,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const UpdateItem = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [startDate, setStartDate] = useState(new Date());
-  const [item, setItem] = useState({});
+  const [itemData, setItem] = useState({});
   const navigate = useNavigate();
 
   const fetchItemData = async () => {
@@ -82,95 +83,111 @@ const UpdateItem = () => {
 
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
-      <section className=" p-2 md:p-6 mx-auto bg-white rounded-md shadow-md ">
-        <h2 className="text-lg font-semibold text-gray-700 capitalize ">
+      <Helmet>
+        <title>Update Item | LostFinder</title>
+      </Helmet>
+      <section className="p-6 mx-auto bg-white dark:bg-gray-800 shadow-md rounded-md w-full max-w-3xl">
+        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
           Update Lost or Found Item
         </h2>
-
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            {item.postType && (
-              <div className="flex flex-col gap-2 ">
-                <label className="text-gray-700 " htmlFor="postType">
-                  Post Type
-                </label>
-                <select
-                  name="postType"
-                  id="postType"
-                  defaultValue={item.postType}
-                  className="border p-2 rounded-md"
-                >
-                  <option value="Lost">Lost</option>
-                  <option value="Found">Found</option>
-                </select>
-              </div>
-            )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-gray-700 " htmlFor="thumbnail">
-                Thumbnail
+              <label
+                htmlFor="postType"
+                className="block text-sm text-gray-600 dark:text-gray-400"
+              >
+                Post Type
+              </label>
+              <select
+                id="postType"
+                name="postType"
+                defaultValue={itemData.postType}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+              >
+                <option value="Lost">Lost</option>
+                <option value="Found">Found</option>
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="thumbnail"
+                className="block text-sm text-gray-600 dark:text-gray-400"
+              >
+                Thumbnail URL
               </label>
               <input
                 id="thumbnail"
                 name="thumbnail"
                 type="url"
-                defaultValue={item.thumbnail}
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+                defaultValue={itemData.thumbnail}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
               />
             </div>
-
             <div>
-              <label className="text-gray-700 " htmlFor="title">
+              <label
+                htmlFor="title"
+                className="block text-sm text-gray-600 dark:text-gray-400"
+              >
                 Title
               </label>
               <input
                 id="title"
                 name="title"
                 type="text"
-                defaultValue={item.title}
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+                defaultValue={itemData.title}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
               />
             </div>
-
             <div>
-              <label className="text-gray-700 " htmlFor="category">
+              <label
+                htmlFor="category"
+                className="block text-sm text-gray-600 dark:text-gray-400"
+              >
                 Category
               </label>
               <input
                 id="category"
                 name="category"
                 type="text"
-                defaultValue={item.category}
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+                defaultValue={itemData.category}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
               />
             </div>
-
-            <div className="flex flex-col gap-2 ">
-              <label className="text-gray-700">Date Lost</label>
-
-              {/* Date Picker Input Field */}
+            <div>
+              <label
+                htmlFor="dateLost"
+                className="block text-sm text-gray-600 dark:text-gray-400"
+              >
+                Date Lost/Found
+              </label>
               <DatePicker
-                className="border p-2 rounded-md"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
               />
             </div>
-
             <div>
-              <label className="text-gray-700 " htmlFor="location">
+              <label
+                htmlFor="location"
+                className="block text-sm text-gray-600 dark:text-gray-400"
+              >
                 Location
               </label>
               <input
                 id="location"
                 name="location"
                 type="text"
-                defaultValue={item.location}
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+                defaultValue={itemData.location}
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
               />
             </div>
-
             <div>
-              <label className="text-gray-700 " htmlFor="name">
-                Name
+              <label
+                htmlFor="name"
+                className="block text-sm text-gray-600 dark:text-gray-400"
+              >
+                Your Name
               </label>
               <input
                 id="name"
@@ -178,33 +195,39 @@ const UpdateItem = () => {
                 type="text"
                 defaultValue={user?.displayName}
                 readOnly
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
               />
             </div>
-
             <div>
-              <label className="text-gray-700 " htmlFor="emailAddress">
+              <label
+                htmlFor="email"
+                className="block text-sm text-gray-600 dark:text-gray-400"
+              >
                 Email Address
               </label>
               <input
-                id="emailAddress"
-                type="email"
+                id="email"
                 name="email"
+                type="email"
                 defaultValue={user?.email}
                 readOnly
-                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
               />
             </div>
           </div>
-          <div className="flex flex-col gap-2 mt-4">
-            <label className="text-gray-700 " htmlFor="description">
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-sm text-gray-600 dark:text-gray-400"
+            >
               Description
             </label>
             <textarea
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
-              name="description"
               id="description"
-              defaultValue={item.description}
+              name="description"
+              rows="4"
+              defaultValue={itemData.description}
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
             ></textarea>
           </div>
           <div className="flex justify-end mt-6">
@@ -219,3 +242,223 @@ const UpdateItem = () => {
 };
 
 export default UpdateItem;
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+// import Swal from "sweetalert2";
+// import { Helmet } from "react-helmet-async";
+
+// const UpdateItem = () => {
+//   const { id } = useParams();
+//   const navigate = useNavigate();
+//   const [itemData, setItemData] = useState(null);
+//   const [startDate, setStartDate] = useState(new Date());
+
+//   useEffect(() => {
+//     // Fetch the existing item data
+//     const fetchItemData = async () => {
+//       try {
+//         const response = await axios.get(
+//           `${import.meta.env.VITE_API_URL}/getItem/${id}`
+//         );
+//         setItemData(response.data);
+//         setStartDate(new Date(response.data.dateLost)); // Pre-fill the date picker
+//       } catch (err) {
+//         console.error("Failed to fetch item data:", err);
+//       }
+//     };
+
+//     fetchItemData();
+//   }, [id]);
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const form = e.target;
+//     const postType = form.postType.value;
+//     const thumbnail = form.thumbnail.value;
+//     const title = form.title.value;
+//     const category = form.category.value;
+//     const dateLost = startDate;
+//     const location = form.location.value;
+//     const description = form.description.value;
+
+//     const updatedData = {
+//       postType,
+//       thumbnail,
+//       title,
+//       category,
+//       dateLost,
+//       location,
+//       description,
+//     };
+
+//     try {
+//       await axios.put(
+//         `${import.meta.env.VITE_API_URL}/updateItem/${id}`,
+//         updatedData
+//       );
+//       Swal.fire({
+//         position: "center",
+//         icon: "success",
+//         title: "Item has been updated successfully!",
+//         showConfirmButton: false,
+//         timer: 1500,
+//       });
+//       navigate("/myItems");
+//     } catch (err) {
+//       console.error(err);
+//       Swal.fire({
+//         position: "center",
+//         icon: "error",
+//         title: "Failed to update item!",
+//       });
+//     }
+//   };
+
+//   // if (!itemData) {
+//   //   return (
+//   //     <div className="flex justify-center items-center min-h-[calc(100vh-306px)]">
+//   //       <p className="text-gray-600 dark:text-gray-400">Loading item data...</p>
+//   //     </div>
+//   //   );
+//   // }
+
+//   return (
+//     <div className="flex justify-center items-center min-h-[calc(100vh-306px)] my-12">
+//       <Helmet>
+//         <title>Update Item | LostFinder</title>
+//       </Helmet>
+//       <section className="p-6 mx-auto bg-white dark:bg-gray-800 shadow-md rounded-md w-full max-w-3xl">
+//         <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+//           Update Lost or Found Item
+//         </h2>
+//         <form onSubmit={handleSubmit} className="space-y-4">
+//           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+//             <div>
+//               <label
+//                 htmlFor="postType"
+//                 className="block text-sm text-gray-600 dark:text-gray-400"
+//               >
+//                 Post Type
+//               </label>
+//               <select
+//                 id="postType"
+//                 name="postType"
+//                 defaultValue={itemData.postType}
+//                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+//               >
+//                 <option value="Lost">Lost</option>
+//                 <option value="Found">Found</option>
+//               </select>
+//             </div>
+//             <div>
+//               <label
+//                 htmlFor="thumbnail"
+//                 className="block text-sm text-gray-600 dark:text-gray-400"
+//               >
+//                 Thumbnail URL
+//               </label>
+//               <input
+//                 id="thumbnail"
+//                 name="thumbnail"
+//                 type="url"
+//                 defaultValue={itemData.thumbnail}
+//                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+//               />
+//             </div>
+//             <div>
+//               <label
+//                 htmlFor="title"
+//                 className="block text-sm text-gray-600 dark:text-gray-400"
+//               >
+//                 Title
+//               </label>
+//               <input
+//                 id="title"
+//                 name="title"
+//                 type="text"
+//                 defaultValue={itemData.title}
+//                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+//               />
+//             </div>
+//             <div>
+//               <label
+//                 htmlFor="category"
+//                 className="block text-sm text-gray-600 dark:text-gray-400"
+//               >
+//                 Category
+//               </label>
+//               <input
+//                 id="category"
+//                 name="category"
+//                 type="text"
+//                 defaultValue={itemData.category}
+//                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+//               />
+//             </div>
+//             <div>
+//               <label
+//                 htmlFor="dateLost"
+//                 className="block text-sm text-gray-600 dark:text-gray-400"
+//               >
+//                 Date Lost/Found
+//               </label>
+//               <DatePicker
+//                 selected={startDate}
+//                 onChange={(date) => setStartDate(date)}
+//                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+//               />
+//             </div>
+//             <div>
+//               <label
+//                 htmlFor="location"
+//                 className="block text-sm text-gray-600 dark:text-gray-400"
+//               >
+//                 Location
+//               </label>
+//               <input
+//                 id="location"
+//                 name="location"
+//                 type="text"
+//                 defaultValue={itemData.location}
+//                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+//               />
+//             </div>
+//           </div>
+//           <div>
+//             <label
+//               htmlFor="description"
+//               className="block text-sm text-gray-600 dark:text-gray-400"
+//             >
+//               Description
+//             </label>
+//             <textarea
+//               id="description"
+//               name="description"
+//               rows="4"
+//               defaultValue={itemData.description}
+//               className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+//             ></textarea>
+//           </div>
+//           <div className="flex justify-end">
+//             <button
+//               type="submit"
+//               className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400"
+//             >
+//               Save Changes
+//             </button>
+//           </div>
+//         </form>
+//       </section>
+//     </div>
+//   );
+// };
+
+// export default UpdateItem;

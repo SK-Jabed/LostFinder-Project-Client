@@ -7,21 +7,24 @@ import HowItWorks from './HowItWorks';
 import TestimonialsSection from './TestimonialsSection';
 import FeaturesSection from './FeaturesSection';
 import CommunitySection from './CommunitySection';
+import { Helmet } from "react-helmet-async";
 
 
 const Home = () => {
     return (
       <div>
+        <Helmet>
+          <title>Home | LostFinder</title>
+        </Helmet>
         <Carousel></Carousel>
-
-        <LatestItems></LatestItems>
 
         <HowItWorks></HowItWorks>
 
-        <FeaturesSection></FeaturesSection>
-        
-        <CommunitySection></CommunitySection>
+        <LatestItems></LatestItems>
 
+        <FeaturesSection></FeaturesSection>
+
+        <CommunitySection></CommunitySection>
       </div>
     );
 };
