@@ -85,7 +85,7 @@ const HowItWorks = () => {
 
   return (
     <section
-      className="text-center my-6 md:my-8 lg:my-12 w-11/12 mx-auto"
+      className="text-center my-6 md:my-8 lg:my-12 w-10/12 mx-auto"
       data-aos="fade-up"
     >
       <motion.h2

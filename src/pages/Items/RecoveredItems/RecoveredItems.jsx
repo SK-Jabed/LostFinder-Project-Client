@@ -3,6 +3,8 @@ import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import { RiTableFill } from "react-icons/ri";
+import { TbLayoutCards } from "react-icons/tb";
 
 const RecoveredItems = () => {
     const axiosSecure = useAxiosSecure();
@@ -32,13 +34,25 @@ const RecoveredItems = () => {
       <Helmet>
         <title>Recovered Items | LostFinder</title>
       </Helmet>
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold">Your Recovered Items</h1>
+      <div className="flex flex-col md:flex-row gap-1 items-center justify-between mb-4">
+        <h1 className="text-2xl font-extrabold bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
+          My Recovered Items
+        </h1>
         <button
           onClick={toggleLayout}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:from-indigo-600 hover:to-blue-500 transition-transform transform"
         >
-          {isTableLayout ? "Show Card Layout" : "Show Table Layout"}
+          {isTableLayout ? (
+            <div className="flex items-center gap-1">
+              <p>Show Card Layout</p>
+              <TbLayoutCards className="text-xl" />
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              <p>Show Table Layout</p>
+              <RiTableFill className="text-xl" />
+            </div>
+          )}
         </button>
       </div>
 
@@ -88,7 +102,7 @@ const RecoveredItems = () => {
           {recoveredItems.map((item) => (
             <div
               key={item._id}
-              className="border border-gray-300 p-4 rounded-md shadow-md"
+              className="border border-gray-300 p-4 bg-gray-50 dark:bg-gray-800 rounded-md shadow-md"
             >
               <p>Recovered at: {item.recoveredLocation}</p>
               <p>Date: {new Date(item.recoveredDate).toLocaleDateString()}</p>

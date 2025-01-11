@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const CommunitySection = () => {
   return (
@@ -18,18 +19,14 @@ const CommunitySection = () => {
           they’ve lost and connect to those in need.
         </p>
         <div className="mt-6 flex justify-center gap-4">
-          <motion.button
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
-            whileHover={{ scale: 1.1 }}
-          >
-            Learn More
-          </motion.button>
-          <motion.button
-            className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-100 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-600 dark:hover:text-white"
-            whileHover={{ scale: 1.1 }}
-          >
-            Get Started
-          </motion.button>
+          <Link to={"/addItems"}>
+            <motion.button
+              className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-100 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-600 dark:hover:text-white"
+              whileHover={{ scale: 1.1 }}
+            >
+              Get Started
+            </motion.button>
+          </Link>
         </div>
       </motion.div>
     </section>

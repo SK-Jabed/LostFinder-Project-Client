@@ -8,6 +8,8 @@ import TestimonialsSection from './TestimonialsSection';
 import FeaturesSection from './FeaturesSection';
 import CommunitySection from './CommunitySection';
 import { Helmet } from "react-helmet-async";
+import AdditionalSection from './AdditionalSection';
+import FAQSection from './FAQSection';
 
 
 const Home = () => {
@@ -24,6 +26,8 @@ const Home = () => {
 
         <FeaturesSection></FeaturesSection>
 
+        <AdditionalSection></AdditionalSection>
+        <FAQSection></FAQSection>
         <CommunitySection></CommunitySection>
       </div>
     );
