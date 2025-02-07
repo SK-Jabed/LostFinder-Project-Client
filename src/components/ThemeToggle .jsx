@@ -37,7 +37,6 @@ const ThemeToggle = () => {
         onChange={toggleTheme}
         className="sr-only"
       />
-
       {/* Sun icon for light mode */}
       <svg
         className="swap-on h-10 w-10 fill-current"
