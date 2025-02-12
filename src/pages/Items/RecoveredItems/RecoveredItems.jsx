@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
@@ -8,21 +7,20 @@ import { TbLayoutCards } from "react-icons/tb";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const RecoveredItems = () => {
-    const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [recoveredItems, setRecoveredItems] = useState([]);
-  const [isTableLayout, setIsTableLayout] = useState(false); // State to toggle layout
-  const [loading, setLoading] = useState(true); // Loader state
-
+  const [isTableLayout, setIsTableLayout] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchRecoveredItems = async () => {
-        setLoading(true)
+      setLoading(true);
       const { data } = await axiosSecure.get(`/recoveries/${user?.email}`);
       console.log(data);
       setRecoveredItems(data);
     };
     fetchRecoveredItems();
-    setLoading(false)
+    setLoading(false);
   }, [user]);
 
   // Toggle layout handler

@@ -1,4 +1,6 @@
 # **LostFinder - User Interface** 🌍
+
+![CasePix Banner](https://github.com/SK-Jabed/LostFinder-Project-Client/blob/6cf0178c021d12582d31fc8afb17cbd6113f58c2/src/assets/Project-view.png)
  
 ## 📖 Project Overview
 
