@@ -5,12 +5,14 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import { RiTableFill } from "react-icons/ri";
 import { TbLayoutCards } from "react-icons/tb";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const RecoveredItems = () => {
     const axiosSecure = useAxiosSecure();
-  const { user, loading, setLoading } = useAuth();
+  const { user } = useAuth();
   const [recoveredItems, setRecoveredItems] = useState([]);
   const [isTableLayout, setIsTableLayout] = useState(false); // State to toggle layout
+  const [loading, setLoading] = useState(true); // Loader state
 
   useEffect(() => {
     const fetchRecoveredItems = async () => {
@@ -57,7 +59,7 @@ const RecoveredItems = () => {
       </div>
 
       {loading ? (
-        <p className="text-center text-gray-500">Loading your items...</p>
+        <LoadingSpinner></LoadingSpinner>
       ) : recoveredItems.length === 0 ? (
         <p className="text-center text-gray-500">
           You have not added any recovered items yet.

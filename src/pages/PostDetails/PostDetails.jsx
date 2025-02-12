@@ -305,7 +305,7 @@ const PostDetails = () => {
 
 
   return (
-    <div className="container px-8 my-8 mx-auto dark:bg-gray-900">
+    <div className="container my-8 mx-auto dark:bg-gray-900">
       <Helmet>
         <title>Post Details | LostFinder</title>
       </Helmet>
@@ -330,13 +330,6 @@ const PostDetails = () => {
         </div>
 
         <div className="mt-8">
-          {/* <Button
-            className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
-            onPress={onOpen}
-          >
-            {postType === "Lost" ? "Found This!" : "This is Mine!"}
-          </Button> */}
-
           <Button
             className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
             onPress={() => {
@@ -349,7 +342,7 @@ const PostDetails = () => {
                 });
                 return;
               }
-              onOpen(); // Open the modal only if the status is not recovered
+              onOpen();
             }}
           >
             {postType === "Lost" ? "Found This!" : "This is Mine!"}
@@ -357,7 +350,6 @@ const PostDetails = () => {
         </div>
       </div>
 
-      {/* Modal */}
       <Modal
         backdrop="blur"
         size="3xl"
@@ -437,14 +429,14 @@ const PostDetails = () => {
                   color="danger"
                   variant="light"
                   onPress={onClose}
-                  className="dark:bg-gray-700 dark:text-gray-300"
+                  className=" text-white bg-red-500 hover:bg-red-700"
                 >
                   Cancel
                 </Button>
                 <Button
                   color="primary"
                   onPress={handleRecoverySubmit}
-                  className="dark:bg-blue-600 dark:text-white dark:hover:bg-blue-700"
+                  className="bg-green-500 text-white hover:bg-green-700"
                 >
                   Submit
                 </Button>

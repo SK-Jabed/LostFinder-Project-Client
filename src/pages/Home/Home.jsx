@@ -27,8 +27,10 @@ const Home = () => {
         <FeaturesSection></FeaturesSection>
 
         <AdditionalSection></AdditionalSection>
+
+        {/* <CommunitySection></CommunitySection> */}
+
         <FAQSection></FAQSection>
-        <CommunitySection></CommunitySection>
       </div>
     );
 };
