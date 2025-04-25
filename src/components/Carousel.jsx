@@ -6,10 +6,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-// import required modules
+// Import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Slide from "./Slide";
 
+// Import Carousel Images
 import bgimg2 from "../assets/slider-images/2147635443.jpg";
 import bgimg4 from "../assets/slider-images/slider3.jpg";
 import bgimg1 from "../assets/slider-images/2148256061.jpg";

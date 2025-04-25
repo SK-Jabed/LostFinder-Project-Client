@@ -12,7 +12,8 @@ const Footer = () => {
                 <Link to="/" className="flex gap-2 items-center">
                   <img className="w-auto h-10" src={logo} alt="" />
                   <span className="font-bold text-3xl text hidden md:block">
-                    <span className="text-black dark:text-white">Lost</span>Finder
+                    <span className="text-black dark:text-white">Lost</span>
+                    Finder
                   </span>
                 </Link>
               </div>
@@ -239,6 +240,7 @@ const Footer = () => {
                       Home
                     </a>
                   </li>
+
                   <li>
                     <a
                       className="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
@@ -247,6 +249,7 @@ const Footer = () => {
                       All Items
                     </a>
                   </li>
+
                   <li>
                     <a
                       className="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"

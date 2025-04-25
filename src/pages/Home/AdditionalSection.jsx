@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import additionalAnimation from "../../assets/additional.json"
+import additionalAnimation from "../../assets/additional.json";
 
 const AdditionalSection = () => {
   const features = [
