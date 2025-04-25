@@ -9,9 +9,9 @@ import AllItems from "../pages/Items/AllItems/AllItems";
 import AddItem from "../pages/Items/AddItem/AddItem";
 import MyItems from "../pages/Items/MyItems/MyItems";
 import RecoveredItems from "../pages/Items/RecoveredItems/RecoveredItems";
-import PrivateRoute from "./PrivateRoute";
 import UpdateItem from "../pages/Items/UpdateItem/UpdateItem";
 import PostDetails from "../pages/PostDetails/PostDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
