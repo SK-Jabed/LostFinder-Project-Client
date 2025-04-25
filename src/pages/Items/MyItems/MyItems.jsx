@@ -23,40 +23,6 @@ const MyItems = () => {
   }, [user]);
 
   // Delete Functionality
-  //   const handleDelete = async (id) => {
-  //     try {
-  //       const { data } = await axios.delete(
-  //         `${import.meta.env.VITE_API_URL}/item/${id}`
-  //       );
-  //     //   console.log(data);
-  //       Swal.fire({
-  //         title: "Are you sure?",
-  //         text: "You won't be able to revert this!",
-  //         icon: "warning",
-  //         showCancelButton: true,
-  //         confirmButtonColor: "#3085d6",
-  //         cancelButtonColor: "#d33",
-  //         confirmButtonText: "Yes, delete it!",
-  //       }).then((result) => {
-  //         if (result.isConfirmed) {
-  //           Swal.fire({
-  //             title: "Deleted!",
-  //             text: "Your Item has been deleted.",
-  //             icon: "success",
-  //           });
-  //         //   fetchMyAddedItems();
-  //         };
-  //       });
-  //     }
-  //     catch (err) {
-  //       console.log(err);
-  //       Swal.fire({
-  //         position: "center",
-  //         icon: "error",
-  //         title: "Error! Delete Operation Failed",
-  //       });
-  //     }
-  //   };
 
   const handleDelete = (id) => {
     Swal.fire({
