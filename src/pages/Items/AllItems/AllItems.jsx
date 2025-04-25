@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import ItemCard from "../ItemCard/ItemCard";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const AllItems = () => {
   const [items, setItems] = useState([]);
