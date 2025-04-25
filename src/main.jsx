@@ -1,11 +1,11 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import router from './routes/Router';
-import AuthProvider from './providers/AuthProvider';
-import { ThemeProvider } from './providers/ThemeContext';
-import { HelmetProvider } from 'react-helmet-async';
+import { ThemeProvider } from "./providers/ThemeContext";
+import { HelmetProvider } from "react-helmet-async";
+import AuthProvider from "./providers/AuthProvider";
+import router from "./routes/Router";
+import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -18,6 +18,7 @@ createRoot(document.getElementById("root")).render(
     </HelmetProvider>
   </StrictMode>
 );
+
 if (
   localStorage.theme === "dark" ||
   (!("theme" in localStorage) &&
