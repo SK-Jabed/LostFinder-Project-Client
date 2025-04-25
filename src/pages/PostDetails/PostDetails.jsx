@@ -40,46 +40,16 @@ const PostDetails = () => {
     fetchItemData();
   }, [id]);
 
-  const { postType, title, description, contactInfo, category, location, dateLost } = item;
+  const {
+    postType,
+    title,
+    description,
+    contactInfo,
+    category,
+    location,
+    dateLost,
+  } = item;
 
-  // Submit handler for recovery data
-  // const handleRecoverySubmit = async () => {
-  //   const recoveryData = {
-  //     recoveredLocation,
-  //     recoveredDate,
-  //     recoveredBy: {
-  //       name: user?.displayName,
-  //       email: user?.email,
-  //       photo: user?.photoURL,
-  //     },
-  //   };
-
-  //   try {
-  //     // Save recovery data
-  //     await axios.post(
-  //       `${import.meta.env.VITE_API_URL}/recoverItem`,
-  //       recoveryData
-  //     );
-
-  //     // Update item status
-  //     await axios.put(`${import.meta.env.VITE_API_URL}/updateItem/${id}`, {
-  //       status: "recovered",
-  //     });
-
-  //     // alert("Item marked as recovered successfully!");
-  //     Swal.fire({
-  //             position: "center",
-  //             icon: "success",
-  //             title: "Item Has been added to recovered items list.",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //     onClose();
-  //     navigate("/allRecovered");
-  //   } catch (error) {
-  //     console.error("Error recovering item:", error);
-  //   }
-  // };
 
   const handleRecoverySubmit = async () => {
     if (item.status === "recovered") {
@@ -126,7 +96,6 @@ const PostDetails = () => {
       console.error("Error recovering item:", error);
     }
   };
-
 
   return (
     <div className="container my-8 mx-auto dark:bg-gray-900">
@@ -274,6 +243,3 @@ const PostDetails = () => {
 };
 
 export default PostDetails;
-
-
-

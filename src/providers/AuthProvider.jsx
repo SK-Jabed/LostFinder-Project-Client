@@ -58,42 +58,42 @@ const AuthProvider = ({ children }) => {
   //   };
   // }, []);
 
-    useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        console.log("CurrentUser-->", currentUser?.email);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log("CurrentUser-->", currentUser?.email);
 
-        if (currentUser?.email) {
-          const user = { email: currentUser.email };
+      if (currentUser?.email) {
+        const user = { email: currentUser.email };
 
-          axios
-            .post(`${import.meta.env.VITE_API_URL}/jwt`, user, {
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/jwt`, user, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("Login token", res.data);
+            setLoading(false);
+          });
+      } else {
+        axios
+          .post(
+            `${import.meta.env.VITE_API_URL}/logout`,
+            {},
+            {
               withCredentials: true,
-            })
-            .then((res) => {
-              console.log("Login token", res.data);
-              setLoading(false);
-            });
-        } else {
-          axios
-            .post(
-              `${import.meta.env.VITE_API_URL}/logout`,
-              {},
-              {
-                withCredentials: true,
-              }
-            )
-            .then((res) => {
-              console.log("Logout", res.data);
-              setLoading(false);
-            });
-        }
-      });
+            }
+          )
+          .then((res) => {
+            console.log("Logout", res.data);
+            setLoading(false);
+          });
+      }
+    });
 
-      return () => {
-        unsubscribe();
-      };
-    }, []);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const authInfo = {
     user,
