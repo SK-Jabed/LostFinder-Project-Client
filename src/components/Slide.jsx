@@ -8,7 +8,6 @@ const Slide = ({ image, text }) => {
       style={{
         backgroundImage: `url(${image})`,
       }}
-      
     >
       <div className="flex items-center justify-center w-full h-full bg-gray-900/70">
         <div className="text-center">
