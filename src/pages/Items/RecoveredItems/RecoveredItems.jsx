@@ -23,7 +23,6 @@ const RecoveredItems = () => {
     setLoading(false);
   }, [user]);
 
-  // Toggle layout handler
   const toggleLayout = () => {
     setIsTableLayout(!isTableLayout);
   };
