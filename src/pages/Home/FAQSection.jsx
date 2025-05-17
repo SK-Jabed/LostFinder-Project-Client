@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
+
+
+
 const FAQSection = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
